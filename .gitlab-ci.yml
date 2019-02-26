@@ -33,12 +33,15 @@ prepare:
   only:
     - master
 
-build:
+test:
   stage: execute
   extends: .yarn_install
   cache: *cache_readonly
   script:
-    - yarn build
+    # Run test script, depending on istanbul install
+    - "test ! -z $(npm -ps ls istanbul) || npm test"
+    - "test   -z $(npm -ps ls istanbul) || npm run-script test-travis"
+    - "test   -z $(npm -ps ls eslint  ) || npm run-script lint"
   only:
     - branches
 

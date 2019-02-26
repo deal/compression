@@ -1,5 +1,5 @@
 {
-  "name": "compression",
+  "name": "@deal/compression",
   "description": "Node.js compression middleware",
   "version": "1.7.3",
   "contributors": [

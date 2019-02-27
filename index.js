@@ -177,7 +177,7 @@ function compression (options) {
       var preferredMethods = ['gzip']
       var acceptEncodingHeader = req.header('accept-encoding')
 
-      if (zlib.createBrotliDecompress) {
+      if (zlib.createBrotliCompress) {
         methods.unshift('br')
         preferredMethods.unshift('br')
       }
@@ -199,7 +199,7 @@ function compression (options) {
       // compression stream
       debug('%s compression', method)
       switch (method) {
-        case 'br': stream = zlib.createBrotliDecompress(opts); break
+        case 'br': stream = zlib.createBrotliCompress(opts); break
         case 'gzip': stream = zlib.createGzip(opts); break
         case 'deflate': stream = zlib.createDeflate(opts); break
       }

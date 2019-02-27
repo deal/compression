@@ -5,7 +5,7 @@ image: node:9.11.2
 
 stages:
   - setup
-  - execute
+  # - execute
   - deploy
 
 # https://docs.gitlab.com/ee/ci/yaml/#anchors
@@ -33,17 +33,17 @@ prepare:
   only:
     - master
 
-test:
-  stage: execute
-  extends: .yarn_install
-  cache: *cache_readonly
-  script:
-    # Run test script, depending on istanbul install
-    - "test ! -z $(npm -ps ls istanbul) || npm test"
-    - "test   -z $(npm -ps ls istanbul) || npm run-script test-travis"
-    - "test   -z $(npm -ps ls eslint  ) || npm run-script lint"
-  only:
-    - branches
+# test:
+#   stage: execute
+#   extends: .yarn_install
+#   cache: *cache_readonly
+#   script:
+#     # Run test script, depending on istanbul install
+#     - "test ! -z $(npm -ps ls istanbul) || npm test"
+#     - "test   -z $(npm -ps ls istanbul) || npm run-script test-travis"
+#     - "test   -z $(npm -ps ls eslint  ) || npm run-script lint"
+#   only:
+#     - branches
 
 publish:
   stage: deploy

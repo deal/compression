@@ -13,8 +13,7 @@
  * Module dependencies.
  * @private
  */
-
-var accepts = require('accepts')
+var accept = require('accept')
 var Buffer = require('safe-buffer').Buffer
 var bytes = require('bytes')
 var compressible = require('compressible')
@@ -174,19 +173,19 @@ function compression (options) {
       }
 
       // compression method
-      var accept = accepts(req)
       var methods = ['gzip', 'deflate', 'identity']
       var preferredMethods = ['gzip']
+      var acceptEncodingHeader = req.header('accept-encoding')
 
-      if (zlib.createBrotliDecompress) {
+      if (zlib.createBrotliCompress) {
         methods.unshift('br')
         preferredMethods.unshift('br')
       }
 
-      var method = accept.encoding(methods)
+      var method = accept.encoding(acceptEncodingHeader, methods)
 
       // we really don't prefer deflate
-      if (method === 'deflate' && accept.encoding(preferredMethods)) {
+      if (method === 'deflate' && accept.encoding(acceptEncodingHeader, preferredMethods)) {
         preferredMethods.push('identity')
         method = accept.encoding(preferredMethods)
       }
@@ -200,7 +199,7 @@ function compression (options) {
       // compression stream
       debug('%s compression', method)
       switch (method) {
-        case 'br': stream = zlib.createBrotliDecompress(opts); break
+        case 'br': stream = zlib.createBrotliCompress(opts); break
         case 'gzip': stream = zlib.createGzip(opts); break
         case 'deflate': stream = zlib.createDeflate(opts); break
       }

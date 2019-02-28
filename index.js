@@ -67,7 +67,7 @@ function compression (options) {
   }
 
   var brotliOpts = opts.brotli || {}
-  brotliOpts.quality = brotliOpts.quality || BROTLI_DEFAULT_QUALITY
+  brotliOpts.level = brotliOpts.level || BROTLI_DEFAULT_QUALITY
 
   var zlibOpts = opts.zlib || {}
   var zlibOptNames = ['flush', 'chunkSize', 'windowBits', 'level', 'memLevel', 'strategy', 'dictionary']

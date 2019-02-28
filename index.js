@@ -19,7 +19,6 @@ var bytes = require('bytes')
 var compressible = require('compressible')
 var debug = require('debug')('compression')
 var Duplex = require('stream').Duplex
-var iltorb = require('iltorb')
 var lruCache = require('lru-cache')
 var multipipe = require('multipipe')
 var onHeaders = require('on-headers')
@@ -481,6 +480,6 @@ function getBestQualityReencoder (coding) {
       var PassThrough = require('stream').PassThrough
       return new PassThrough()
     case 'br':
-      return multipipe(iltorb.decompressStream(), iltorb.compressStream())
+      return multipipe(zlib.createBrotliDecompress(), zlib.createBrotliCompress())
   }
 }
